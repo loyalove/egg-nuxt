@@ -26,6 +26,8 @@ module.exports = (options, app) => {
       return;
     }
 
+    ctx.status = 200
+    ctx.respond = false
     return new Promise(executor => {
       app.nuxt.render(ctx.req, ctx.res, executor)
     })
