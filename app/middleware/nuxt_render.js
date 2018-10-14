@@ -4,7 +4,7 @@ const nuxtPaths = ['/_nuxt', '/__webpack_hmr']
 
 function isNuxt(path) {
   return nuxtPaths.some(val => {
-    return path.indexOf(val) > -1
+    return path.match(val)
   })
 }
 
