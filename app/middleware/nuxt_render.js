@@ -14,9 +14,10 @@ module.exports = (options, app) => {
 
     // webpack hot reload
     if (isNuxt(ctx.path)) {
-      return new Promise(executor => {
+      await new Promise(executor => {
         app.nuxt.render(ctx.req, ctx.res, executor)
       })
+      return
     }
 
     await next()
@@ -28,9 +29,8 @@ module.exports = (options, app) => {
 
     ctx.status = 200
     ctx.respond = false
-    return new Promise(executor => {
-      app.nuxt.render(ctx.req, ctx.res, executor)
-    })
+
+    app.nuxt.render(ctx.req, ctx.res, executor)
 
   };
 };
