@@ -6,16 +6,21 @@ module.exports = (options, app) => {
 
     // webpack hot reload
     if (ctx.path === '/__webpack_hmr') {
-      return new Promise((resolve, reject) => {
-        ctx.res.on('close', resolve)
-        ctx.res.on('finish', resolve)
-        ctx.app.nuxt.render(ctx.req, ctx.res, promise => {
-          promise.then(resolve).catch(reject)
-        })
+      return new Promise(executor => {
+        app.nuxt.render(ctx.req, ctx.res, executor)
       })
     }
 
     await next()
 
+    // ignore status if not 404
+    if (ctx.status !== 404 || ctx.method !== 'GET') {
+      return;
+    }
+
+    return new Promise(executor => {
+      app.nuxt.render(ctx.req, ctx.res, executor)
+    })
+    
   };
 };
