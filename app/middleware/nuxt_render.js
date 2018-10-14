@@ -30,7 +30,7 @@ module.exports = (options, app) => {
     ctx.status = 200
     ctx.respond = false
 
-    app.nuxt.render(ctx.req, ctx.res, executor)
+    app.nuxt.render(ctx.req, ctx.res)
 
   };
 };
