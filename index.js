@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./lib/nuxt-egg');
+module.exports = require('./lib/egg-nuxt');

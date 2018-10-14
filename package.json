@@ -1,6 +1,6 @@
 {
   "name": "egg-nuxt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "egg framework for nuxt",
   "keywords": [
     "egg", "egg-framework", "nuxt", "egg-nuxt"
@@ -15,7 +15,6 @@
     "index.js",
     "app.js",
     "agent.js",
-    "nuxt.config.js",
     "LICENSE",
     "pacakge.json",
     "README.md"
@@ -39,7 +38,7 @@
     "eslint-plugin-standard": "^2.0.1"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.9.0"
   },
   "scripts": {
     "test": "npm run lint -- --fix && npm run test-local",

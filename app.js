@@ -5,7 +5,8 @@ const {
 } = require('nuxt')
 
 module.exports = app => {
-  app.config.coreMiddleware.splice(0, 0, 'nuxtRender');
+  app.config.coreMiddleware.unshift('nuxtRender');
+
   app.beforeStart(async () => {
     try {
       await new Builder(app.nuxt).build();

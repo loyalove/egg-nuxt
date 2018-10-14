@@ -5,7 +5,7 @@ const mm = require('egg-mock');
 const assert = require('assert');
 const utils = require('./utils');
 
-describe('test/nuxt-egg.test.js', () => {
+describe('test/egg-nuxt.test.js', () => {
   describe('render', () => {
     let app;
     before(() => {
