@@ -1,12 +1,9 @@
 'use strict';
-const {
-  Nuxt,
-  Builder
-} = require('nuxt');
+const {Nuxt, Builder} = require('nuxt');
 const NUXT = Symbol('Application#nuxt');
-const {
-  loadNuxtConfig
-} = require('../../lib/utils');
+const NUXTBUILDER = Symbol('Application#nuxtBuilder');
+const {loadNuxtConfig} = require('../../lib/utils');
+
 module.exports = {
   get nuxt() {
     if (!this[NUXT]) {
@@ -14,4 +11,10 @@ module.exports = {
     }
     return this[NUXT];
   },
+  get nuxtBuilder() {
+    if (!this[NUXTBUILDER]) {
+      this[NUXTBUILDER] = new Builder(this.nuxt);
+    }
+    return this[NUXTBUILDER];
+  }
 };
