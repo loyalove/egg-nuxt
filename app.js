@@ -9,8 +9,8 @@ module.exports = app => {
 
   app.beforeStart(async () => {
     try {
-      await new Builder(app.nuxt).build();
-      if (!app.config.nuxt.dev) {
+      if (app.config.nuxt.dev) {
+        await new Builder(app.nuxt).build();
         console.log('[nuxt] Building done'); // eslint-disable-line no-console
       }
     } catch (error) {
