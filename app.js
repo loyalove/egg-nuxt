@@ -5,11 +5,10 @@ module.exports = app => {
 
   app.beforeStart(async () => {
     try {
-      app.nuxt;
       if (app.config.nuxt.dev) {
         await app.nuxtBuilder.build();
+        console.log('[nuxt] Building done'); // eslint-disable-line no-console
       }
-      console.log('[nuxt] Building done'); // eslint-disable-line no-console
     } catch (error) {
       console.log('[nuxt] Building error', error); // eslint-disable-line no-console
       process.exit(1);

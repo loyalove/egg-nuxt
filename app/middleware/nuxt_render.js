@@ -13,24 +13,24 @@ module.exports = (options, app) => {
   return async function (ctx, next) {
 
     // webpack hot reload
-    if (isNuxt(ctx.path)) {
-      ctx.status = 200
-      await new Promise(executor => {
-        app.nuxt.render(ctx.req, ctx.res, executor)
-      })
-      return
-    }
+    if (!isNuxt(ctx.path)) {
 
-    await next()
+      await next()
 
-    // ignore status if not 404
-    if (ctx.status !== 404 || ctx.method !== 'GET') {
-      return;
+      // ignore status if not 404
+      if (ctx.status !== 404 || ctx.method !== 'GET') {
+        return;
+      }
     }
 
     ctx.status = 200
-    await new Promise(executor => {
-      app.nuxt.render(ctx.req, ctx.res, executor)
+    await new Promise((resolve, reject) => {
+      ctx.res.on('close', resolve)
+      ctx.res.on('finish', resolve)
+      app.nuxt.render(ctx.req, ctx.res, promise => {
+        // nuxt.render passes a rejected promise into callback on error.
+        promise.then(resolve).catch(reject)
+      })
     })
 
   };
