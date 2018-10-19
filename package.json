@@ -19,7 +19,7 @@
     "pacakge.json",
     "README.md"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
