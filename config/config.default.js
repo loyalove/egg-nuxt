@@ -3,19 +3,21 @@ const path = require('path');
 
 module.exports = appInfo => {
 
-  exports.keys = appInfo.name + '#egg-nuxt';
+  const config = {}
 
-  exports.core = 'egg-nuxt';
+  config.keys = appInfo.name + '#egg-nuxt';
 
-  exports.nuxt = {
+  config.core = 'egg-nuxt';
+
+  config.nuxt = {
     srcDir: path.join(appInfo.baseDir, './nuxt'),
     rootDir: path.join(appInfo.baseDir),
   };
 
   // allow website request throw up crsf check
-  exports.security = {
+  config.security = {
     ignoreJson: true,
   };
 
-  return exports;
+  return config;
 };
