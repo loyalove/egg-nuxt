@@ -1,9 +1,12 @@
 {
-  "name": "egg-nuxt",
-  "version": "1.0.1",
+  "name": "@loyalove/egg-nuxt",
+  "version": "1.0.0",
   "description": "egg framework for nuxt",
   "keywords": [
-    "egg", "egg-framework", "nuxt", "egg-nuxt"
+    "egg",
+    "egg-framework",
+    "nuxt",
+    "egg-nuxt"
   ],
   "eggPlugin": {
     "name": "nuxt"
@@ -29,7 +32,7 @@
     "eslint-config-egg": "^3.2.0",
     "rimraf": "^2.5.4",
     "supertest": "^3.0.0",
-    "eslint": "^3.15.0",    
+    "eslint": "^3.15.0",
     "babel-eslint": "^7.1.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-loader": "^1.6.1",
@@ -47,5 +50,11 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loyalove/egg-nuxt.git"
+  },
+  "homepage": "https://github.com/loyalove/egg-nuxt.git#readme",
+  "author": "loyalove",
   "license": "MIT"
 }
