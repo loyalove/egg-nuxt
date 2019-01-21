@@ -1,8 +1,8 @@
 'use strict';
 
-const nuxtPaths = ['/_nuxt', '/__webpack_hmr']
+const nuxtPaths = ['/__webpack_hmr/client']
 
-function isNuxt(path) {
+function isNuxtPath(path) {
   return nuxtPaths.some(val => {
     return path.match(val)
   })
@@ -12,24 +12,34 @@ module.exports = (options, app) => {
 
   return async (ctx, next) => {
 
-    // webpack hot reload
-    if (!isNuxt(ctx.path)) {
+    // 先执行其他的请求处理
+    await next()
 
-      await next()
-
-      // ignore status if not 404
-      if (ctx.status !== 404 || ctx.method !== 'GET') {
-        return;
-      }
+    // 处理结果不为404, 或者请求方式不为GET, 则说明该请求为服务器处理请求, nuxt不作处理
+    if (ctx.status !== 404 || ctx.method !== 'GET') {
+      return;
     }
 
-    ctx.status = 200
+    ctx.status = 200;
 
+    const path = ctx.path;
+    if (/\.js$/.test(path)) {
+      ctx.set('Content-Type', 'application/javascript');
+    }
+    if (/\.css/.test(path)) {
+      ctx.set('Content-Type', 'text/css');
+    }
+
+    // webpack hot reload
+    if (isNuxtPath(ctx.path)) {
+      ctx.response.remove('Content-Length')
+    }
+
+    // 执行nuxt渲染方法
     await new Promise(resolve => {
       app.nuxt.render(ctx.req, ctx.res, resolve);
     });
 
     next();
-
   };
 };
