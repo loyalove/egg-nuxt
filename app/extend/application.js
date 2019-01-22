@@ -7,7 +7,7 @@ const {loadNuxtConfig} = require('../../lib/utils');
 module.exports = {
   get nuxt() {
     if (!this[NUXT]) {
-      this[NUXT] = new Nuxt(loadNuxtConfig(this.config));
+      this[NUXT] = new Nuxt(loadNuxtConfig(this.config))
     }
     return this[NUXT];
   },

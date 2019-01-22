@@ -1,13 +1,5 @@
 'use strict';
 
-const nuxtPaths = ['/__webpack_hmr/client']
-
-function isNuxtPath(path) {
-  return nuxtPaths.some(val => {
-    return path.match(val)
-  })
-}
-
 module.exports = (options, app) => {
 
   return async (ctx, next) => {
@@ -23,15 +15,8 @@ module.exports = (options, app) => {
     ctx.status = 200;
 
     const path = ctx.path;
-    if (/\.js$/.test(path)) {
-      ctx.set('Content-Type', 'application/javascript');
-    }
-    if (/\.css/.test(path)) {
-      ctx.set('Content-Type', 'text/css');
-    }
-
     // webpack hot reload
-    if (isNuxtPath(ctx.path)) {
+    if (path.match('/__webpack_hmr/client')) {
       ctx.response.remove('Content-Length')
     }
 
@@ -40,6 +25,5 @@ module.exports = (options, app) => {
       app.nuxt.render(ctx.req, ctx.res, resolve);
     });
 
-    next();
   };
 };
