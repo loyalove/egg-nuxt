@@ -15,6 +15,15 @@ module.exports = (options, app) => {
     ctx.status = 200;
 
     const path = ctx.path;
+
+    if (/\.js$/.test(path)) {
+      ctx.set('Content-Type', 'application/javascript');
+    }
+
+    if (/\.css/.test(path)) {
+      ctx.set('Content-Type', 'text/css');
+    }
+
     // webpack hot reload
     if (path.match('/__webpack_hmr/client')) {
       ctx.response.remove('Content-Length')
