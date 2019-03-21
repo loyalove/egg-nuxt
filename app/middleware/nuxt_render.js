@@ -12,8 +12,6 @@ module.exports = (options, app) => {
       return;
     }
 
-    ctx.status = 200;
-
     const path = ctx.path;
 
     if (/\.js$/.test(path)) {
@@ -29,10 +27,12 @@ module.exports = (options, app) => {
       ctx.response.remove('Content-Length')
     }
 
-    // 执行nuxt渲染方法
-    await new Promise(resolve => {
-      app.nuxt.render(ctx.req, ctx.res, resolve);
-    });
+    ctx.status = 200;
+    ctx.respond = false // Mark request as handled for Koa
+    ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
 
+    // 执行nuxt渲染方法
+    let nuxt = app.nuxt;
+    nuxt.render(ctx.req, ctx.res)
   };
 };
