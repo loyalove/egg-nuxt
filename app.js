@@ -1,5 +1,7 @@
 'use strict';
 
+const {Nuxt, Builder} = require('nuxt');
+
 module.exports = app => {
   app.config.coreMiddleware.unshift('nuxtRender');
 
@@ -7,11 +9,15 @@ module.exports = app => {
     try {
       if (app.config.nuxt.dev) {
         await app.nuxtBuilder.build();
-        console.log('[nuxt] Building done'); // eslint-disable-line no-console
+        app.logger.info('[nuxt] nuxt building done'); // eslint-disable-line no-console
       }
+
+      app.nuxt
+      app.logger.info(`[nuxt] nuxt version ${Nuxt.version}`);
     } catch (error) {
-      console.log('[nuxt] Building error', error); // eslint-disable-line no-console
+      app.logger.error('[nuxt] nuxt building error', error); // eslint-disable-line no-console
       process.exit(1);
     }
   });
+
 };
